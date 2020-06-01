@@ -2,5 +2,159 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "confirm": {
+      "projectType": "library",
+      "root": "projects/confirm",
+      "sourceRoot": "projects/confirm/src",
+      "prefix": "ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/confirm/tsconfig.lib.json",
+            "project": "projects/confirm/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/confirm/src/test.ts",
+            "tsConfig": "projects/confirm/tsconfig.spec.json",
+            "karmaConfig": "projects/confirm/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/confirm/tsconfig.lib.json",
+              "projects/confirm/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "confirm-example": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/confirm-example",
+      "sourceRoot": "projects/confirm-example/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/confirm-example",
+            "index": "projects/confirm-example/src/index.html",
+            "main": "projects/confirm-example/src/main.ts",
+            "polyfills": "projects/confirm-example/src/polyfills.ts",
+            "tsConfig": "projects/confirm-example/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/confirm-example/src/favicon.ico",
+              "projects/confirm-example/src/assets"
+            ],
+            "styles": [
+              "projects/confirm-example/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/confirm-example/src/environments/environment.ts",
+                  "with": "projects/confirm-example/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "confirm-example:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "confirm-example:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "confirm-example:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/confirm-example/src/test.ts",
+            "polyfills": "projects/confirm-example/src/polyfills.ts",
+            "tsConfig": "projects/confirm-example/tsconfig.spec.json",
+            "karmaConfig": "projects/confirm-example/karma.conf.js",
+            "assets": [
+              "projects/confirm-example/src/favicon.ico",
+              "projects/confirm-example/src/assets"
+            ],
+            "styles": [
+              "projects/confirm-example/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/confirm-example/tsconfig.app.json",
+              "projects/confirm-example/tsconfig.spec.json",
+              "projects/confirm-example/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/confirm-example/e2e/protractor.conf.js",
+            "devServerTarget": "confirm-example:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "confirm-example:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "confirm"
 }

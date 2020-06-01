@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-unifirm": [
+        "dist/ng-unifirm"
+      ],
+      "ng-unifirm/*": [
+        "dist/ng-unifirm/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
